@@ -10,43 +10,44 @@ This is a simple API for a cinema. It allows you to create movies, cinemas, show
 - access to the API documentation (Swagger)
 - access to the API documentation (Redoc)
 
-## Installation
-#### Clone the repository
+## Set environment variables 
+#### Create .env file in the root directory (you can use .env.example as a template)
+```
+POSTGRES_HOST=db
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=secret
+POSTGRES_NAME=postgres
+SECRET_KEY=dajngosecretkey
+```
+You can generate a secret key in [this](https://djecrety.ir/) service.
+
+### Clone the repository
 ```sh
 $ git clone git@github.com:yura-hudzovskyi/cinema_api.git
 $ cd cinema_api
 ```
 
-#### Run with docker-compose
-!! Docker and docker-compose must be installed !!
-1. Set environment variables in .env file. You can use .env.sample as an example.
-```
-POSTGRES_HOST=db
-POSTGRES_USER=postgres
-POSTGRES_PASSWORD=secret
-POSTGRES_DB=postgres
-POSTGRES_NAME=postgres
-```
-2. Run docker-compose
+## Local installation
 ```sh
-$ docker-compose up
-```
-Check the API at http://127.0.0.1:8000
-
-## To get started with the API
-1. If you want to use the admin panel, create a superuser
-```sh
-$ docker-compose run app "python manage.py createsuperuser"
-```
-2. If you want to use the API, create a user
-```
-http://127.0.0.1:8000/api/user/register/
-```
-After that, you can get a token for the user. Enter email and password, and save the token.
-```
-http://127.0.0.1:8000/api/user/token/
+$ python3 -m venv venv
+$ source venv/bin/activate # for Linux
+$ venv\Scripts\activate # for Windows
+$ pip install -r requirements.txt
+$ python manage.py migrate
+$ python manage.py runserver
 ```
 
+## Installation with docker-compose
+- Make sure you have docker and docker-compose installed
+- Run the following commands
+```sh
+$ docker-compose up --build
+```
+
+## To access the API pages you can use the following steps:
+- Register a new user [http://127.0.0.1:8000/api/user/register/](http://127.0.0.1:8000/api/user/register/)
+- Get a token [http://127.0.0.1:8000/api/user/token/](http://127.0.0.1:8000/api/user/token/)
+- Use the token to access the API (ModHeader extension can be used for this)
 ## API Documentation
 1. Swagger
 ```
